@@ -1,89 +1,102 @@
 from random import randint
+
+# Imports 
 import random
 import math
 import string
+
+#Define all functions to be used
 def isprime(n):
     n = abs(int(n))
     if n < 2:
         return False
     if n == 2: 
         return True    
-    if not n & 1: 
+    if not 1 & n: 
         return False
-    for x in range(3, int(n**0.5) + 1, 2):
-        if n % x == 0:
+    for p in range(3, int(n**0.5) + 1, 2):
+        if n % p == 0:
             return False
     return True
-def vowel_count_test(string):
-    count=0
-    for z in string:
-        if z in ['a','e','i','o','u']:
+
+def vowel_count(string):
+    count = 0
+    for x in string:
+        if x in ['a','e','i','o','u']:
             count=count+1
     return count
-def sort_by_vowel_count(words):
-    return words.sort(key=vowel_count_test,reverse=True)
 
-studentNr = input("What is your Student Number? ")
+def sort_by_vowel_count(word):
+    return word.sort(key=vowel_count,reverse=True)
+
+
+
+studentNumber = input("Student Number: ")
 print ("")
-type(studentNr)
-studNr = [int(i) for i in str(studentNr)]
-print ("0. The Student number is " + studentNr)
-print (" ")
-studentNrLen = len(studNr)
+type(studentNumber)
+sNumber = [int(i) for i in str(studentNumber)]
+print ("Accepted the student number: " + studentNumber)
+print ("")
+sNumLen = len(sNumber)
 
-primeNumbers = 0
+print ()
+p = 0
 
-for i in range (0, studentNrLen):
+for i in range (0, sNumLen):
     
-    if (isprime(studNr[i])):
-        primeNumbers += 1
+    if (isprime(sNumber[i])):
+        p += 1
  
-if primeNumbers == 0:
-    primeNumbers += 1
-    print ("There was no prime numbers so to make sure we can divide the random number with the prime numbers we made the 0 a 1")
-    print ("1. The number of prime numbers in this student number is: ", primeNumbers)
+if p == 0:
+    print ("Note: No Prime Numbers were found. Defaulting to 1 in order to allow division.")
+    p += 1
+    print ("1. The number of prime numbers in this student number is: ", p)
 else:
-    print ("1. The number of prime numbers in this student number is: ", primeNumbers)
-print ("")
+    print ("1. The number of prime numbers in this student number is: ", p)
+print (" ")
 
-q = randint(25,50)
-print ("2. The Random number is: ", q)
+q = 30
+
+print ("The Value of q before randomizing the number: ", q)
+print (" ")
+q = randint(24,51)
+print ("2. The Random number now is: ", q)
 print (" ")
 
 
-r = math.floor(q / primeNumbers)
+r = math.floor(q / p)
 
 print ("3. The number of strings to be generated is: ", r)
 print (" ")
 
 print ("4. List of Strings: ")
-print ("******************")
+print ("-----------------")
 
 
-arrayOfStrings = []
-boolTest = True
+arrWords = []
+boolSwitch = True
 for i in range(0,r):
-    if boolTest:
-        arrayOfStrings.append(''.join(random.choices(string.ascii_lowercase, k=5)))
-        boolTest = False
+    if boolSwitch:
+        arrWords.append(''.join(random.choices(string.ascii_lowercase, k=5)))
+        boolSwitch = False
     else:
-        arrayOfStrings.append(''.join(random.choices(string.ascii_lowercase, k=7)))
-        boolTest = True
+        arrWords.append(''.join(random.choices(string.ascii_lowercase, k=7)))
+        boolSwitch = True
 
 for i in range(0, r):
-    print (i, " - ",arrayOfStrings[i])
+    print (i, " - ",arrWords[i])
 
-print ("***************")    
+print ("-----------------")    
 
 print ("")
 print ("5. Sorted List:")
-print ("***************") 
+print ("-----------------") 
 
-#sorted(arrayOfStrings, key=lambda word: sum(ch in 'aeiou' for ch in word),  reverse=False)
-arrayOfStrings.sort(key = vowel_count_test, reverse = True)
+
+arrWords.sort(key = vowel_count, reverse = True)
 for i in range(0, r):
-    print (i, " - ", arrayOfStrings[i], "(Vowels:", vowel_count_test(arrayOfStrings[i]),")")
-print ("***************") 
+    print (i, " - ", arrWords[i], "(Vowels:", vowel_count(arrWords[i]),")")
+print ("-----------------") 
 
 
 
